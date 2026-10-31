@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baptist Comprehensive Academy | Portal</title>
+  <link rel="icon" href="logo.png">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ========================================== */
+    /* 1. GLOBAL STYLES & DESIGN SYSTEM           */
+    /* ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #16243a;
+      background: #f8fafc;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    :root {
+      --navy: #0b2a52;
+      --navy-dark: #071b36;
+      --gold: #c9a23a;
+      --gold-light: #f4e7c3;
+      --slate-bg: #f8fafc;
+      --border-color: #e4e8ef;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--navy-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    /* Helper Utilities */
+    .hidden {
+      display: none !important;
+    }
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: 800;
+      border: 2px solid var(--navy);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    .btn:hover {
+      background: var(--navy-dark);
+      border-color: var(--navy-dark);
+    }
+    .btn.gold {
+      background: var(--gold);
+      color: var(--navy-dark);
+      border-color: var(--gold);
+    }
+    .btn.gold:hover {
+      background: #b5902d;
+      border-color: #b5902d;
+    }
+    .btn.outline {
+      background: #fff;
+      color: var(--navy);
+    }
+    .btn.outline:hover {
+      background: var(--navy);
+      color: #fff;
+    }
+    .btn.sm {
+      padding: 7px 14px;
+      font-size: 12px;
+    }
+
+    /* ========================================== */
+    /* 2. AUTHENTICATION MODAL (LOGIN GUARD)       */
+    /* ========================================== */
+    #auth-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 27, 54, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      padding: 35px 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border: 2px solid var(--gold);
+      text-align: center;
+      position: relative;
+    }
+    .login-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+    .login-card h2 {
+      color: var(--navy);
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .login-card p.sub {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .form-group input, 
+    .form-group textarea, 
+    .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .form-group input:focus, 
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 162, 58, 0.2);
+    }
+    .login-hint {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 11px;
+      color: #475569;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    /* ========================================== */
+    /* 3. HEADER & NAVIGATION                     */
+    /* ========================================== */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e7e7e7;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-wrap {
+      max-width: 1150px;
+      margin: auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    nav button.nav-link {
+      border: none;
+      background: transparent;
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    nav button.nav-link:hover,
+    nav button.nav-link.active {
+      background: var(--navy);
+      color: #fff;
+    }
+    .user-pill {
+      background: #f1f5f9;
+      border: 1px solid var(--gold);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 10px;
+    }
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: var(--navy);
+      color: #fff;
+      font-size: 22px;
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    /* Mobile Nav Drawer */
+    #mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      padding: 15px 24px;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      gap: 8px;
+    }
+    #mobile-nav button {
+      width: 100%;
+      text-align: left;
+    }
+
+    /* Top Banner */
+    .top-bar {
+      background: var(--navy-dark);
+      color: #cbd5e1;
+      font-size: 12px;
+      padding: 6px 24px;
+    }
+    .top-bar-inner {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ========================================== */
+    /* 4. SECTIONS & CONTENT                      */
+    /* ========================================== */
+    main {
+      flex: 1;
+    }
+    .hero {
+      min-height: 520px;
+      background: linear-gradient(135deg, #f8fafc, #fff);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 60px max(24px, calc((100% - 1100px) / 2));
+    }
+    .hero-content {
+      max-width: 650px;
+    }
+    h1 {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.1;
+      margin: 10px 0 20px;
+      color: var(--navy);
+    }
+    h1 span {
+      color: var(--gold);
+    }
+    h2 {
+      font-size: 30px;
+      line-height: 1.2;
+      color: var(--navy);
+    }
+    .hero p:not(.eyebrow),
+    .page-hero p:not(.eyebrow) {
+      font-size: 18px;
+      color: #536176;
+    }
+    .hero-logo {
+      width: min(340px, 35vw);
+      filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.1));
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 65px 24px;
+    }
+    .section > h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 35px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .cards article,
+    .service,
+    .spotlight-card,
+    .event-card {
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 26px;
+      background: #fff;
+      box-shadow: 0 8px 25px rgba(11, 42, 82, 0.05);
+    }
+    .icon {
+      font-size: 32px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .cards h3 {
+      color: var(--navy);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    /* Page Hero header for sub-pages */
+    .page-hero {
+      padding: 60px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #f4f7fb, #fff);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    .values ul {
+      padding-left: 20px;
+    }
+    .values li {
+      margin: 12px 0;
+    }
+
+    /* Services Grid */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .service span.num {
+      font-weight: 900;
+      color: var(--gold);
+      font-size: 20px;
+      display: block;
+    }
+    .service h3 {
+      font-size: 20px;
+      margin: 8px 0;
+      color: var(--navy);
+    }
+
+    /* Location Card */
+    .location {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 16px;
+      padding: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+    .location h2 {
+      color: #fff;
+      margin: 4px 0 10px;
+    }
+    .location p:not(.eyebrow) {
+      margin: 0;
+      color: #e8eef7;
+      font-size: 15px;
+    }
+
+    /* ========================================== */
+    /* 5. WALL OF FAME & EVENTS STYLES           */
+    /* ========================================== */
+    .spotlight-grid, .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+    .spotlight-card, .event-card {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+    .spotlight-img, .event-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--navy);
+    }
+    .spotlight-body, .event-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .spotlight-tag, .event-badge {
+      background: var(--gold-light);
+      color: #7a5c0b;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 8px;
+      width: fit-content;
+    }
+    .event-badge.upcoming {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .event-badge.past {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+    .spotlight-title, .event-title {
+      font-size: 18px;
+      color: var(--navy);
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .spotlight-class, .event-meta {
+      font-size: 13px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .spotlight-desc, .event-desc {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* Section Subheaders */
+    .section-subheader {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      color: var(--navy);
+      margin: 40px 0 20px 0;
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 8px;
+    }
+
+    /* Admin Action Overlay Modal */
+    #admin-modal, #admin-event-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 27, 54, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .admin-card {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 580px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      font-size: 13px;
+      font-weight: bold;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy-dark);
+      color: #cbd5e1;
+      text-align: center;
+      padding: 25px;
+      margin-top: auto;
+    }
+    footer p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 800px) {
+      .menu-btn {
+        display: block;
+      }
+      nav {
+        display: none;
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+      }
+      .hero-logo {
+        width: 220px;
+        order: -1;
+      }
+      .buttons {
+        justify-content: center;
+      }
+      .cards,
+      .service-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .location {
+        margin-left: 24px;
+        margin-right: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .brand span {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast">
+    <i class="fa-solid fa-circle-check text-gold"></i>
+    <span id="toast-msg">Action performed successfully</span>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 1. MANDATORY LOGIN OVERLAY / GUARD        -->
+  <!-- ========================================== -->
+  <div id="auth-overlay">
+    <div class="login-card">
+      <img src="logo.png" alt="Baptist Comprehensive Academy logo" onerror="this.src='https://placehold.co/120x120/0b2a52/c9a23a?text=BCA+Logo'">
+      <h2>Baptist Comprehensive Academy</h2>
+      <p class="sub">Masaka, Angwa Mission, Ogo Oluwa Baptist Church</p>
+      
+      <!-- Auth Switcher Tabs -->
+      <div style="display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 10px;">
+        <button id="auth-tab-login" type="button" onclick="switchAuthMode('login')" style="flex: 1; padding: 8px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; background: var(--navy); color: #fff;">
+          Sign In
+        </button>
+        <button id="auth-tab-register" type="button" onclick="switchAuthMode('register')" style="flex: 1; padding: 8px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; background: transparent; color: var(--navy);">
+          Create Account
+        </button>
+      </div>
+
+      <div class="login-hint">
+        <strong>Portal Access Requirements:</strong><br>
+        • New Users & Students: Register using the <strong>"Create Account"</strong> tab.<br>
+        • Administrators: Require an <strong>Admin Secret Key</strong> during registration.
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" required placeholder="e.g. user@bca.edu">
+        </div>
+        <div class="form-group">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" required placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn gold" style="width: 100%; margin-top: 10px;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to Access Site
+        </button>
+      </form>
+
+      <!-- REGISTRATION FORM -->
+      <form id="register-form" class="hidden" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label for="reg-fullname">Full Name *</label>
+          <input type="text" id="reg-fullname" required placeholder="e.g. John Okoro">
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email Address *</label>
+          <input type="email" id="reg-email" required placeholder="e.g. student@bca.edu">
+        </div>
+        <div class="form-group">
+          <label for="reg-role">I am a: *</label>
+          <select id="reg-role" onchange="toggleAdminKeyInput(this.value)">
+            <option value="student">Student</option>
+            <option value="parent">Parent / Guardian</option>
+            <option value="staff">Staff / Teacher</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <!-- SECRET ADMIN KEY FIELD -->
+        <div class="form-group hidden" id="admin-key-group">
+          <label for="reg-adminkey" style="color: #b91c1c;">Admin Secret Access Key *</label>
+          <input type="password" id="reg-adminkey" placeholder="Enter BCA Security Key (e.g. BCA-ADMIN-2026)">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-pass">Create Password *</label>
+          <input type="password" id="reg-pass" required minlength="4" placeholder="Minimum 4 characters">
+        </div>
+        <button type="submit" class="btn gold" style="width: 100%; margin-top: 10px;">
+          <i class="fa-solid fa-user-plus"></i> Register & Access Portal
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. SITE WRAPPER (HIDDEN UNTIL LOGGED IN)   -->
+  <!-- ========================================== -->
+  <div id="app-wrapper" class="hidden">
+    
+    <!-- Top info bar -->
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div>
+          <i class="fa-solid fa-location-dot" style="color: var(--gold);"></i> Masaka, Angwa Mission, Ogo Oluwa Baptist Church, Nasarawa State
+        </div>
+        <div>
+          <i class="fa-solid fa-phone" style="color: var(--gold);"></i> 08038641866 &bull; <i class="fa-solid fa-book-bible" style="color: var(--gold);"></i> Knowledge • Character • Service
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Header & Navigation -->
+    <header>
+      <div class="nav-wrap">
+        <a class="brand" href="#" onclick="switchTab('home')">
+          <img src="logo.png" alt="School logo" onerror="this.src='https://placehold.co/80x80/0b2a52/c9a23a?text=BCA'">
+          <span>Baptist Comprehensive Academy</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav>
+          <button class="nav-link active" id="nav-home" onclick="switchTab('home')">Home</button>
+          <button class="nav-link" id="nav-about" onclick="switchTab('about')">About</button>
+          <button class="nav-link" id="nav-services" onclick="switchTab('services')">Services</button>
+          <button class="nav-link" id="nav-events" onclick="switchTab('events')">
+            <i class="fa-solid fa-calendar-days" style="color: var(--gold); margin-right: 4px;"></i> Events
+          </button>
+          <button class="nav-link" id="nav-fame" onclick="switchTab('fame')">
+            <i class="fa-solid fa-trophy" style="color: var(--gold); margin-right: 4px;"></i> Wall of Fame
+          </button>
+
+          <!-- Admin Buttons (Visible only to Admin) -->
+          <button id="admin-post-btn" class="btn sm gold hidden" onclick="openAdminModal()">
+            <i class="fa-solid fa-plus-circle"></i> Result
+          </button>
+
+          <button id="admin-event-btn" class="btn sm gold hidden" onclick="openAdminEventModal()">
+            <i class="fa-solid fa-calendar-plus"></i> Event
+          </button>
+
+          <!-- User status pill -->
+          <div class="user-pill">
+            <i class="fa-solid fa-user-check" style="color: var(--gold);"></i>
+            <span id="user-display-email">user</span>
+            <span id="user-display-role" style="font-size: 10px; background: var(--gold); color: var(--navy-dark); padding: 1px 6px; border-radius: 10px; text-transform: uppercase;">Role</span>
+          </div>
+
+          <!-- Logout Button -->
+          <button onclick="handleLogout()" class="btn sm outline" style="margin-left: 6px;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </nav>
+
+        <!-- Mobile Drawer Menu Toggle -->
+        <button class="menu-btn" onclick="toggleMobileNav()">☰</button>
+      </div>
+
+      <!-- Mobile Dropdown Navigation -->
+      <div id="mobile-nav">
+        <button class="nav-link" onclick="switchTab('home'); toggleMobileNav()">Home</button>
+        <button class="nav-link" onclick="switchTab('about'); toggleMobileNav()">About</button>
+        <button class="nav-link" onclick="switchTab('services'); toggleMobileNav()">Services</button>
+        <button class="nav-link" onclick="switchTab('events'); toggleMobileNav()">📅 Events & Calendar</button>
+        <button class="nav-link" onclick="switchTab('fame'); toggleMobileNav()">🏆 Wall of Fame</button>
+        <button id="mobile-admin-btn" class="btn sm gold hidden" onclick="openAdminModal(); toggleMobileNav()">
+          + Post Student Result (Admin)
+        </button>
+        <button id="mobile-admin-event-btn" class="btn sm gold hidden" onclick="openAdminEventModal(); toggleMobileNav()">
+          + Post New Event (Admin)
+        </button>
+        <button onclick="handleLogout()" class="btn sm outline" style="margin-top: 8px;">Log Out</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- ========================================== -->
+      <!-- TAB 1: HOME PAGE                           -->
+      <!-- ========================================== -->
+      <div id="tab-home" class="tab-content">
+        <section class="hero">
+          <div class="hero-content">
+            <span class="eyebrow">KNOWLEDGE • CHARACTER • SERVICE</span>
+            <h1>Welcome to <span>Baptist Comprehensive Academy</span></h1>
+            <p>
+              Building students with strong knowledge, good character and a heart ready to serve God and society.
+            </p>
+            <div class="buttons">
+              <button class="btn" onclick="switchTab('about')">Learn About Us</button>
+              <button class="btn outline" onclick="switchTab('events')">School Events</button>
+              <button class="btn gold" onclick="switchTab('fame')">
+                <i class="fa-solid fa-award"></i> Best Students
+              </button>
+            </div>
+          </div>
+          <img class="hero-logo" src="logo.png" alt="School logo" onerror="this.src='https://placehold.co/300x300/0b2a52/c9a23a?text=BCA+Logo'">
+        </section>
+
+        <section class="section">
+          <h2>Why Choose Our Academy?</h2>
+          <div class="cards">
+            <article>
+              <div class="icon"><i class="fa-solid fa-book-open"></i></div>
+              <h3>Quality Education</h3>
+              <p>
+                We encourage learning, curiosity and academic growth in a supportive and modern school environment.
+              </p>
+            </article>
+            <article>
+              <div class="icon"><i class="fa-solid fa-cross"></i></div>
+              <h3>Christian Values</h3>
+              <p>
+                Our school promotes faith, integrity, discipline, kindness and responsible living based on Godly principles.
+              </p>
+            </article>
+            <article>
+              <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              <h3>Character Building</h3>
+              <p>
+                We help students develop confidence, respect, responsibility and leadership qualities for future success.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="location">
+          <div>
+            <span class="eyebrow">OUR LOCATION & CONTACT</span>
+            <h2>Visit Baptist Comprehensive Academy</h2>
+            <p>
+              Masaka, Angwa Mission, Ogo Oluwa Baptist Church, Nasarawa State, Nigeria.
+              <br><strong>Phone Hotline:</strong> 08038641866
+            </p>
+          </div>
+          <a class="btn gold" href="https://www.google.com/maps/search/?api=1&query=Ogo+Oluwa+Baptist+Church+Masaka+Nasarawa+Nigeria" target="_blank">
+            <i class="fa-solid fa-map-location-dot"></i> View on Google Maps
+          </a>
+        </section>
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- TAB 2: ABOUT PAGE                          -->
+      <!-- ========================================== -->
+      <div id="tab-about" class="tab-content hidden">
+        <section class="page-hero">
+          <span class="eyebrow">ABOUT OUR SCHOOL</span>
+          <h1>About Baptist Comprehensive Academy</h1>
+          <p>
+            A Christ-centred learning community focused on knowledge, character and service.
+          </p>
+        </section>
+
+        <section class="section two-col">
+          <div>
+            <h2>Who We Are</h2>
+            <p style="margin-bottom: 15px;">
+              Baptist Comprehensive Academy is a school designed to support academic development alongside strong moral and Christian values. Located at Ogo Oluwa Baptist Church premises in Masaka.
+            </p>
+            <p>
+              Our goal is to create an environment where students can learn, grow, discover their abilities and prepare for responsible service in their communities.
+            </p>
+          </div>
+
+          <div class="values">
+            <h2>Our Core Pillars</h2>
+            <ul>
+              <li>
+                <strong>Knowledge:</strong> We value learning, critical thinking, and continuous academic improvement.
+              </li>
+              <li>
+                <strong>Character:</strong> We encourage integrity, self-discipline, respect, and honesty in all dealings.
+              </li>
+              <li>
+                <strong>Service:</strong> We teach students to use their talents to help others and transform society.
+              </li>
+              <li>
+                <strong>Faith:</strong> We promote Christian principles in daily school life and spiritual growth.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="location">
+          <div>
+            <span class="eyebrow">CAMPUS ADDRESS</span>
+            <h2>Where We Are</h2>
+            <p>
+              Masaka, Angwa Mission, Ogo Oluwa Baptist Church, Nasarawa State, Nigeria.
+            </p>
+          </div>
+          <a class="btn gold" href="https://www.google.com/maps/search/?api=1&query=Ogo+Oluwa+Baptist+Church+Masaka+Nasarawa+Nigeria" target="_blank">
+            Open Map
+          </a>
+        </section>
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- TAB 3: SERVICES PAGE                       -->
+      <!-- ========================================== -->
+      <div id="tab-services" class="tab-content hidden">
+        <section class="page-hero">
+          <span class="eyebrow">WHAT WE OFFER</span>
+          <h1>Our Academic Services</h1>
+          <p>
+            Supporting students through education, character development and school activities.
+          </p>
+        </section>
+
+        <section class="section">
+          <div class="service-grid">
+            <article class="service">
+              <span class="num">01</span>
+              <h3>Academic Learning</h3>
+              <p>
+                Structured learning that supports students' academic development and preparation for future studies and WAEC/NECO distinction.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="num">02</span>
+              <h3>Christian Education</h3>
+              <p>
+                Faith-based activities that encourage Christian values, good conduct, moral rectitude, and spiritual growth.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="num">03</span>
+              <h3>Character Development</h3>
+              <p>
+                Activities that promote discipline, self-confidence, personal responsibility, teamwork, and mutual respect.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="num">04</span>
+              <h3>Student Activities</h3>
+              <p>
+                School clubs, sports, and science exhibitions giving students opportunities to develop talents and leadership skills.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="num">05</span>
+              <h3>Guidance & Support</h3>
+              <p>
+                A caring school environment where students receive personal encouragement, mentoring, and academic counseling.
+              </p>
+            </article>
+
+            <article class="service">
+              <span class="num">06</span>
+              <h3>Community Service</h3>
+              <p>
+                Encouraging students to understand the importance of helping others and contributing positively to the Masaka community.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- TAB 4: EVENTS PAGE (UPCOMING & PAST)       -->
+      <!-- ========================================== -->
+      <div id="tab-events" class="tab-content hidden">
+        <section class="page-hero">
+          <span class="eyebrow">SCHOOL CALENDAR & NEWS</span>
+          <h1>School Events & Activities</h1>
+          <p>
+            Stay updated with upcoming programs, term schedules, and past event archives.
+          </p>
+          <div id="admin-event-shortcut" class="hidden" style="margin-top: 15px;">
+            <button class="btn gold sm" onclick="openAdminEventModal()">
+              <i class="fa-solid fa-plus-circle"></i> Post New Event (Admin)
+            </button>
+          </div>
+        </section>
+
+        <section class="section">
+          <!-- UPCOMING EVENTS SECTION -->
+          <div class="section-subheader">
+            <i class="fa-solid fa-calendar-check" style="color: #15803d;"></i> Upcoming Events
+          </div>
+          <div id="upcoming-events-container" class="events-grid">
+            <!-- Dynamically Populated -->
+          </div>
+
+          <!-- PAST EVENTS SECTION -->
+          <div class="section-subheader">
+            <i class="fa-solid fa-clock-rotate-left" style="color: #64748b;"></i> Past Events & Archives
+          </div>
+          <div id="past-events-container" class="events-grid">
+            <!-- Dynamically Populated -->
+          </div>
+        </section>
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- TAB 5: BEST STUDENTS / WALL OF FAME        -->
+      <!-- ========================================== -->
+      <div id="tab-fame" class="tab-content hidden">
+        <section class="page-hero">
+          <span class="eyebrow">WALL OF FAME</span>
+          <h1>Best Students & Result Showcase</h1>
+          <p>
+            Celebrating academic excellence, distinctions, and outstanding achievements at BCA.
+          </p>
+        </section>
+
+        <section class="section">
+          <!-- Post Grid Container -->
+          <div id="spotlight-posts-container" class="spotlight-grid">
+            <!-- Dynamically populated via JavaScript -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2026 Baptist Comprehensive Academy, Masaka (Ogo Oluwa Baptist Church). All rights reserved.</p>
+    </footer>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 6. ADMIN RESULT POSTING MODAL              -->
+  <!-- ========================================== -->
+  <div id="admin-modal" class="hidden">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 style="color: var(--navy); display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-award" style="color: var(--gold);"></i> Admin Result Posting Console
+        </h3>
+        <button onclick="closeAdminModal()" style="border:none; background:none; font-size:20px; cursor:pointer; color:#94a3b8;">&times;</button>
+      </div>
+
+      <form id="post-form" onsubmit="handleAdminSubmitPost(event)">
+        <div class="form-group">
+          <label for="post-name">Student Full Name *</label>
+          <input type="text" id="post-name" required placeholder="e.g. Samuel Adebayo">
+        </div>
+
+        <div class="form-group">
+          <label for="post-class">Class / Distinction Title *</label>
+          <input type="text" id="post-class" required placeholder="e.g. SS3 Best Graduating Student / 9 A1s WAEC">
+        </div>
+
+        <div class="form-group">
+          <label for="post-desc">Result Summary & Remarks *</label>
+          <textarea id="post-desc" rows="3" required placeholder="Type the results breakdown or award details..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="post-img-file">Upload Student Photo / Result Image</label>
+          <input type="file" id="post-img-file" accept="image/*" onchange="previewFileImage(event)">
+          <div id="file-preview-wrap" style="margin-top: 10px; display: none;">
+            <img id="file-preview" src="" style="height: 100px; border-radius: 8px; border: 1px solid var(--gold);">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="post-img-url">Or Image Web URL</label>
+          <input type="url" id="post-img-url" placeholder="https://...">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn outline sm" onclick="closeAdminModal()">Cancel</button>
+          <button type="submit" class="btn gold sm">
+            <i class="fa-solid fa-paper-plane"></i> Publish Spotlight Post
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 7. ADMIN EVENT POSTING MODAL               -->
+  <!-- ========================================== -->
+  <div id="admin-event-modal" class="hidden">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 style="color: var(--navy); display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-calendar-plus" style="color: var(--gold);"></i> Admin Event Posting Console
+        </h3>
+        <button onclick="closeAdminEventModal()" style="border:none; background:none; font-size:20px; cursor:pointer; color:#94a3b8;">&times;</button>
+      </div>
+
+      <form id="event-form" onsubmit="handleAdminSubmitEvent(event)">
+        <div class="form-group">
+          <label for="event-title">Event Title / Header *</label>
+          <input type="text" id="event-title" required placeholder="e.g. 2026 Inter-House Sports Competition">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="event-date">Event Date *</label>
+            <input type="date" id="event-date" required>
+          </div>
+          <div class="form-group">
+            <label for="event-time">Time *</label>
+            <input type="text" id="event-time" required placeholder="e.g. 9:00 AM - 2:00 PM">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="event-venue">Venue / Location *</label>
+            <input type="text" id="event-venue" required placeholder="e.g. School Sports Complex">
+          </div>
+          <div class="form-group">
+            <label for="event-category">Category *</label>
+            <select id="event-category">
+              <option value="Academic">Academic</option>
+              <option value="Sports">Sports & Athletics</option>
+              <option value="Spiritual">Spiritual / Service</option>
+              <option value="Social">Cultural & Social</option>
+              <option value="Exams">Examinations</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="event-desc">Event Description & Instructions *</label>
+          <textarea id="event-desc" rows="3" required placeholder="Provide event details, dress code, parent instructions, etc..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="event-img-file">Upload Event Banner Image</label>
+          <input type="file" id="event-img-file" accept="image/*" onchange="previewEventFileImage(event)">
+          <div id="event-file-preview-wrap" style="margin-top: 10px; display: none;">
+            <img id="event-file-preview" src="" style="height: 100px; border-radius: 8px; border: 1px solid var(--gold);">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="event-img-url">Or Image Web URL</label>
+          <input type="url" id="event-img-url" placeholder="https://...">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn outline sm" onclick="closeAdminEventModal()">Cancel</button>
+          <button type="submit" class="btn gold sm">
+            <i class="fa-solid fa-calendar-check"></i> Publish Event
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 8. APPLICATION LOGIC (JS)                  -->
+  <!-- ========================================== -->
+  <script>
+    // Storage Keys
+    const USER_KEY = 'bca_user_session_2026';
+    const REGISTERED_USERS_KEY = 'bca_registered_users_2026';
+    const POSTS_KEY = 'bca_wall_posts_2026';
+    const EVENTS_KEY = 'bca_events_2026';
+
+    // Secret Key for Admin Registration
+    const SECRET_ADMIN_KEY = 'BCA-ADMIN-2026';
+
+    // State Variables
+    let currentUser = null;
+    let selectedImageBase64 = '';
+    let selectedEventImageBase64 = '';
+
+    // Default Seed Posts (Wall of Fame)
+    const initialPosts = [
+      {
+        id: 'post-1',
+        name: 'Grace Emmanuel',
+        studentClass: 'SS3 Best Graduating Student',
+        desc: 'Scored 8 A1 Distinctions in WAEC 2026 including Mathematics, Further Maths, Physics, and Chemistry. Scored 342 in JAMB UTME.',
+        img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+        date: 'Oct 2026'
+      },
+      {
+        id: 'post-2',
+        name: 'Daniel Blessing O.',
+        studentClass: 'JS3 Junior Secondary Scholar',
+        desc: 'Averaged 94.5% overall in BECE examinations, securing top position in Nasarawa State Mathematics Olympiad.',
+        img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80',
+        date: 'Sep 2026'
+      }
+    ];
+
+    // Default Seed Events (Upcoming & Past)
+    const initialEvents = [
+      {
+        id: 'event-1',
+        title: 'End of Year Inter-House Sports Fiesta',
+        date: '2026-11-20',
+        time: '9:00 AM - 3:30 PM',
+        venue: 'BCA Main Sports Ground',
+        category: 'Sports',
+        desc: 'Join us for a thrilling day of athletics, house competitions, track events, and marching display. Parents and alumni are warmly invited!',
+        img: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'event-2',
+        title: 'First Term Examination 2026/2027',
+        date: '2026-12-05',
+        time: '8:00 AM Daily',
+        venue: 'Academy Examination Halls',
+        category: 'Exams',
+        desc: 'All students are expected to clear school fees and collect exam dockets prior to commencement date.',
+        img: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'event-3',
+        title: 'Annual Christian Heritage & Thanksgiving Worship',
+        date: '2026-09-15',
+        time: '10:00 AM - 1:00 PM',
+        venue: 'Ogo Oluwa Baptist Church Auditorium',
+        category: 'Spiritual',
+        desc: 'A glorious praise service giving thanks for successful academic session, God’s protection, and student development.',
+        img: 'https://images.unsplash.com/photo-1510519138161-584459eb1b37?auto=format&fit=crop&w=600&q=80'
+      }
+    ];
+
+    // Initialization on DOM Ready
+    window.addEventListener('DOMContentLoaded', () => {
+      initPostsStorage();
+      initEventsStorage();
+      initRegisteredUsersStorage();
+      checkAuthSession();
+    });
+
+    function initRegisteredUsersStorage() {
+      if (!localStorage.getItem(REGISTERED_USERS_KEY)) {
+        localStorage.setItem(REGISTERED_USERS_KEY, JSON.stringify([]));
+      }
+    }
+
+    function initPostsStorage() {
+      if (!localStorage.getItem(POSTS_KEY)) {
+        localStorage.setItem(POSTS_KEY, JSON.stringify(initialPosts));
+      }
+    }
+
+    function initEventsStorage() {
+      if (!localStorage.getItem(EVENTS_KEY)) {
+        localStorage.setItem(EVENTS_KEY, JSON.stringify(initialEvents));
+      }
+    }
+
+    // Toggle Secret Admin Key input when Administrator role is picked
+    function toggleAdminKeyInput(role) {
+      const keyGroup = document.getElementById('admin-key-group');
+      const keyInput = document.getElementById('reg-adminkey');
+      if (role === 'admin') {
+        keyGroup.classList.remove('hidden');
+        keyInput.setAttribute('required', 'required');
+      } else {
+        keyGroup.classList.add('hidden');
+        keyInput.removeAttribute('required');
+      }
+    }
+
+    // Toggle between Sign In and Register Mode
+    function switchAuthMode(mode) {
+      const loginTab = document.getElementById('auth-tab-login');
+      const regTab = document.getElementById('auth-tab-register');
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+
+      if (mode === 'register') {
+        loginTab.style.background = 'transparent';
+        loginTab.style.color = 'var(--navy)';
+        regTab.style.background = 'var(--navy)';
+        regTab.style.color = '#fff';
+
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+      } else {
+        regTab.style.background = 'transparent';
+        regTab.style.color = 'var(--navy)';
+        loginTab.style.background = 'var(--navy)';
+        loginTab.style.color = '#fff';
+
+        regForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+      }
+    }
+
+    // Auth Session Check
+    function checkAuthSession() {
+      const stored = localStorage.getItem(USER_KEY);
+      if (stored) {
+        try {
+          currentUser = JSON.parse(stored);
+          showApp();
+        } catch(e) {
+          showLoginGuard();
+        }
+      } else {
+        showLoginGuard();
+      }
+    }
+
+    // Handle Registration
+    function handleRegister(e) {
+      e.preventDefault();
+      const fullname = document.getElementById('reg-fullname').value.trim();
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const pass = document.getElementById('reg-pass').value;
+      const chosenRole = document.getElementById('reg-role').value;
+      const adminKeyInput = document.getElementById('reg-adminkey').value.trim();
+
+      if (!fullname || !email || !pass) return;
+
+      // Security check for Admin registration
+      if (chosenRole === 'admin') {
+        if (adminKeyInput !== SECRET_ADMIN_KEY) {
+          showToast('Invalid Admin Secret Key! Access Denied.');
+          return;
+        }
+      }
+
+      const registeredUsers = JSON.parse(localStorage.getItem(REGISTERED_USERS_KEY) || '[]');
+
+      // Check if user already exists
+      const existing = registeredUsers.find(u => u.email === email);
+      if (existing) {
+        showToast('An account with this email already exists! Please Sign In.');
+        switchAuthMode('login');
+        document.getElementById('login-email').value = email;
+        return;
+      }
+
+      const newUser = { fullname, email, pass, role: chosenRole };
+      registeredUsers.push(newUser);
+      localStorage.setItem(REGISTERED_USERS_KEY, JSON.stringify(registeredUsers));
+
+      // Auto-login registered user
+      currentUser = { fullname, email, role: chosenRole };
+      localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+
+      showToast(`Account created! Logged in as ${chosenRole.toUpperCase()}`);
+      showApp();
+    }
+
+    // Handle Login
+    function handleLogin(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('login-email').value.trim().toLowerCase();
+      const passInput = document.getElementById('login-pass').value;
+      
+      if (!emailInput || !passInput) return;
+
+      const registeredUsers = JSON.parse(localStorage.getItem(REGISTERED_USERS_KEY) || '[]');
+      const user = registeredUsers.find(u => u.email === emailInput);
+
+      if (!user) {
+        showToast('Account not found! Please register a new account.');
+        switchAuthMode('register');
+        document.getElementById('reg-email').value = emailInput;
+        return;
+      }
+
+      if (user.pass !== passInput) {
+        showToast('Incorrect password. Please try again.');
+        return;
+      }
+
+      currentUser = {
+        fullname: user.fullname || user.email.split('@')[0],
+        email: user.email,
+        role: user.role
+      };
+
+      localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+      showToast(`Welcome back! Logged in as ${currentUser.role.toUpperCase()}`);
+      showApp();
+    }
+
+    // Handle Logout
+    function handleLogout() {
+      localStorage.removeItem(USER_KEY);
+      currentUser = null;
+      showToast('Logged out');
+      showLoginGuard();
+    }
+
+    function showLoginGuard() {
+      document.getElementById('auth-overlay').classList.remove('hidden');
+      document.getElementById('app-wrapper').classList.add('hidden');
+    }
+
+    function showApp() {
+      document.getElementById('auth-overlay').classList.add('hidden');
+      document.getElementById('app-wrapper').classList.remove('hidden');
+
+      // Update navbar user pill & admin button visibility
+      document.getElementById('user-display-email').textContent = currentUser.fullname || currentUser.email;
+      document.getElementById('user-display-role').textContent = currentUser.role;
+
+      const adminBtn = document.getElementById('admin-post-btn');
+      const mobileAdminBtn = document.getElementById('mobile-admin-btn');
+      const adminEventBtn = document.getElementById('admin-event-btn');
+      const mobileAdminEventBtn = document.getElementById('mobile-admin-event-btn');
+      const adminEventShortcut = document.getElementById('admin-event-shortcut');
+
+      if (currentUser.role === 'admin') {
+        adminBtn.classList.remove('hidden');
+        mobileAdminBtn.classList.remove('hidden');
+        adminEventBtn.classList.remove('hidden');
+        mobileAdminEventBtn.classList.remove('hidden');
+        adminEventShortcut.classList.remove('hidden');
+      } else {
+        adminBtn.classList.add('hidden');
+        mobileAdminBtn.classList.add('hidden');
+        adminEventBtn.classList.add('hidden');
+        mobileAdminEventBtn.classList.add('hidden');
+        adminEventShortcut.classList.add('hidden');
+      }
+
+      renderPosts();
+      renderEvents();
+    }
+
+    // Tab Navigation Switcher
+    function switchTab(tabName) {
+      const tabs = ['home', 'about', 'services', 'events', 'fame'];
+      tabs.forEach(t => {
+        const contentEl = document.getElementById(`tab-${t}`);
+        const navEl = document.getElementById(`nav-${t}`);
+
+        if (t === tabName) {
+          contentEl.classList.remove('hidden');
+          if (navEl) navEl.classList.add('active');
+        } else {
+          contentEl.classList.add('hidden');
+          if (navEl) navEl.classList.remove('active');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render Wall of Fame Posts
+    function renderPosts() {
+      const container = document.getElementById('spotlight-posts-container');
+      const raw = localStorage.getItem(POSTS_KEY);
+      const posts = raw ? JSON.parse(raw) : [];
+
+      if (posts.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: #fff; border-radius: 12px;">
+            <p style="color: #64748b;">No student results posted yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      container.innerHTML = posts.map(p => `
+        <div class="spotlight-card">
+          <img src="${p.img}" class="spotlight-img" alt="${escapeHtml(p.name)}" 
+               onerror="this.src='https://placehold.co/600x400/0b2a52/c9a23a?text=Student+Result'">
+          
+          <div class="spotlight-body">
+            <div>
+              <span class="spotlight-tag"><i class="fa-solid fa-award"></i> ${p.date || 'Result'}</span>
+              <div class="spotlight-title">${escapeHtml(p.name)}</div>
+              <div class="spotlight-class">${escapeHtml(p.studentClass)}</div>
+              <div class="spotlight-desc">${escapeHtml(p.desc)}</div>
+            </div>
+
+            ${isAdmin ? `
+              <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; text-align: right;">
+                <button onclick="deletePost('${p.id}')" class="btn sm outline" style="color: #e11d48; border-color: #fda4af;">
+                  <i class="fa-solid fa-trash"></i> Delete Post
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Events (Categorized into Upcoming and Past)
+    function renderEvents() {
+      const upcomingContainer = document.getElementById('upcoming-events-container');
+      const pastContainer = document.getElementById('past-events-container');
+
+      const raw = localStorage.getItem(EVENTS_KEY);
+      const events = raw ? JSON.parse(raw) : [];
+
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      const upcomingEvents = events.filter(e => e.date >= todayStr).sort((a, b) => a.date.localeCompare(b.date));
+      const pastEvents = events.filter(e => e.date < todayStr).sort((a, b) => b.date.localeCompare(a.date));
+
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      // Render Upcoming
+      if (upcomingEvents.length === 0) {
+        upcomingContainer.innerHTML = `<p style="grid-column: 1/-1; color: #64748b; font-style: italic;">No upcoming events scheduled right now.</p>`;
+      } else {
+        upcomingContainer.innerHTML = upcomingEvents.map(ev => createEventCardHTML(ev, true, isAdmin)).join('');
+      }
+
+      // Render Past
+      if (pastEvents.length === 0) {
+        pastContainer.innerHTML = `<p style="grid-column: 1/-1; color: #64748b; font-style: italic;">No past events stored in archive.</p>`;
+      } else {
+        pastContainer.innerHTML = pastEvents.map(ev => createEventCardHTML(ev, false, isAdmin)).join('');
+      }
+    }
+
+    function createEventCardHTML(ev, isUpcoming, isAdmin) {
+      const formattedDate = new Date(ev.date).toLocaleDateString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+      });
+
+      return `
+        <div class="event-card">
+          <img src="${ev.img}" class="event-img" alt="${escapeHtml(ev.title)}" 
+               onerror="this.src='https://placehold.co/600x400/0b2a52/c9a23a?text=BCA+Event'">
+          <div class="event-body">
+            <div>
+              <span class="event-badge ${isUpcoming ? 'upcoming' : 'past'}">
+                <i class="fa-solid ${isUpcoming ? 'fa-calendar-day' : 'fa-clock-rotate-left'}"></i> 
+                ${isUpcoming ? 'Upcoming Event' : 'Past Event'}
+              </span>
+              <div class="event-title">${escapeHtml(ev.title)}</div>
+              <div class="event-meta">
+                <span><i class="fa-solid fa-calendar"></i> ${formattedDate} (${escapeHtml(ev.time)})</span>
+                <span><i class="fa-solid fa-location-dot"></i> ${escapeHtml(ev.venue)}</span>
+                <span><i class="fa-solid fa-tag"></i> ${escapeHtml(ev.category)}</span>
+              </div>
+              <div class="event-desc">${escapeHtml(ev.desc)}</div>
+            </div>
+
+            ${isAdmin ? `
+              <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; text-align: right;">
+                <button onclick="deleteEvent('${ev.id}')" class="btn sm outline" style="color: #e11d48; border-color: #fda4af;">
+                  <i class="fa-solid fa-trash"></i> Delete Event
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Result Modal Control
+    function openAdminModal() {
+      document.getElementById('post-form').reset();
+      selectedImageBase64 = '';
+      document.getElementById('file-preview-wrap').style.display = 'none';
+      document.getElementById('admin-modal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-modal').classList.add('hidden');
+    }
+
+    // Event Modal Control
+    function openAdminEventModal() {
+      document.getElementById('event-form').reset();
+      selectedEventImageBase64 = '';
+      document.getElementById('event-file-preview-wrap').style.display = 'none';
+      document.getElementById('admin-event-modal').classList.remove('hidden');
+    }
+
+    function closeAdminEventModal() {
+      document.getElementById('admin-event-modal').classList.add('hidden');
+    }
+
+    // Convert local file uploads to Base64 data URL
+    function previewFileImage(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          selectedImageBase64 = evt.target.result;
+          const img = document.getElementById('file-preview');
+          img.src = selectedImageBase64;
+          document.getElementById('file-preview-wrap').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function previewEventFileImage(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          selectedEventImageBase64 = evt.target.result;
+          const img = document.getElementById('event-file-preview');
+          img.src = selectedEventImageBase64;
+          document.getElementById('event-file-preview-wrap').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Handle Admin Submit New Result Post
+    function handleAdminSubmitPost(e) {
+      e.preventDefault();
+
+      if (currentUser.role !== 'admin') {
+        showToast('Only Admin can post results!');
+        return;
+      }
+
+      const name = document.getElementById('post-name').value.trim();
+      const studentClass = document.getElementById('post-class').value.trim();
+      const desc = document.getElementById('post-desc').value.trim();
+      const urlImg = document.getElementById('post-img-url').value.trim();
+
+      const finalImg = selectedImageBase64 || urlImg || 'https://placehold.co/600x400/0b2a52/c9a23a?text=BCA+Scholar';
+
+      const newPost = {
+        id: 'post-' + Date.now(),
+        name,
+        studentClass,
+        desc,
+        img: finalImg,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+      };
+
+      const raw = localStorage.getItem(POSTS_KEY);
+      const posts = raw ? JSON.parse(raw) : [];
+      posts.unshift(newPost);
+
+      localStorage.setItem(POSTS_KEY, JSON.stringify(posts));
+      showToast('Best student result posted successfully!');
+      closeAdminModal();
+      
+      renderPosts();
+      switchTab('fame');
+    }
+
+    // Handle Admin Submit New Event Post
+    function handleAdminSubmitEvent(e) {
+      e.preventDefault();
+
+      if (currentUser.role !== 'admin') {
+        showToast('Only Admin can post events!');
+        return;
+      }
+
+      const title = document.getElementById('event-title').value.trim();
+      const date = document.getElementById('event-date').value;
+      const time = document.getElementById('event-time').value.trim();
+      const venue = document.getElementById('event-venue').value.trim();
+      const category = document.getElementById('event-category').value;
+      const desc = document.getElementById('event-desc').value.trim();
+      const urlImg = document.getElementById('event-img-url').value.trim();
+
+      const finalImg = selectedEventImageBase64 || urlImg || 'https://placehold.co/600x400/0b2a52/c9a23a?text=BCA+Event';
+
+      const newEvent = {
+        id: 'event-' + Date.now(),
+        title,
+        date,
+        time,
+        venue,
+        category,
+        desc,
+        img: finalImg
+      };
+
+      const raw = localStorage.getItem(EVENTS_KEY);
+      const events = raw ? JSON.parse(raw) : [];
+      events.push(newEvent);
+
+      localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+      showToast('School Event posted successfully!');
+      closeAdminEventModal();
+      
+      renderEvents();
+      switchTab('events');
+    }
+
+    // Delete Post
+    function deletePost(id) {
+      if (confirm('Delete this spotlight post?')) {
+        const raw = localStorage.getItem(POSTS_KEY);
+        let posts = raw ? JSON.parse(raw) : [];
+        posts = posts.filter(p => p.id !== id);
+        localStorage.setItem(POSTS_KEY, JSON.stringify(posts));
+        showToast('Post removed');
+        renderPosts();
+      }
+    }
+
+    // Delete Event
+    function deleteEvent(id) {
+      if (confirm('Delete this school event from the schedule?')) {
+        const raw = localStorage.getItem(EVENTS_KEY);
+        let events = raw ? JSON.parse(raw) : [];
+        events = events.filter(ev => ev.id !== id);
+        localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+        showToast('Event deleted');
+        renderEvents();
+      }
+    }
+
+    // Mobile Navigation Drawer Toggle
+    function toggleMobileNav() {
+      const mob = document.getElementById('mobile-nav');
+      mob.style.display = (mob.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // Toast Notification helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // HTML Sanitizer
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+  </script>
+</body>
+</html>
